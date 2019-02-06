@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/javascript" src="http://latex.codecogs.com/editor3.js"></script>
+<meta charset="UTF-8"> 
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel="stylesheet" type="text/css"
+  href="https://latex.codecogs.com/css/equation-embed.css" />
+<!--[if lte IE 7]>
+<link rel="stylesheet" href="http://latex.codecogs.com/css/ie6.css" type="text/css"/>
+<![endif]-->
+<script type="text/javascript" 
+  src="https://latex.codecogs.com/js/eq_config.js" ></script>
+<script type="text/javascript" 
+  src="https://latex.codecogs.com/js/eq_editor-lite-18.js" ></script>
 <script type="text/javascript">
 MathJax.Hub.Config({
     extensions: ["toMathML.js"]
@@ -20,16 +29,12 @@ function toMathML(jax,callback) {
 }
 
 function updateMathJaxBox() {
-    mathjaxBox.innerText = latexBox.value;
+    mathjaxBox.innerText = "$$" + latexBox.value + "$$";
     MathJax.Hub.Typeset();
-    MathJax.Hub.Queue(
-        function () {
-            var jax = MathJax.Hub.getAllJax(mathjaxBox)[0];
-            toMathML(jax, function(mml) {
-                pasteBox.value = '<?xml version="1.0"?>\n' + mml;
-            });
-        }
-    );
+    var jax = MathJax.Hub.getAllJax(mathjaxBox)[0];
+    toMathML(jax, function(mml) {
+        pasteBox.value = '<?xml version="1.0"?>\n' + mml;
+    });
 }
 
 function ShowCopyright() {
@@ -40,6 +45,21 @@ function ShowCopyright() {
     }
 }
 
+</script>
+<script type="text/javascript">
+function waitForElementToDisplay(selector, time) {
+    if(document.querySelector(selector)!=null) {
+        EqEditor.embed('latexToolbar');
+        EqEditor.add(new EqTextArea('latexEquation', 'latexBox'),false);
+        return;
+    }
+    else {
+        setTimeout(function() {
+            waitForElementToDisplay(selector, time);
+        }, time);
+    }
+}
+waitForElementToDisplay('#latexEquation', 200);
 </script>
 
 <title>LaTeX to Word Equation Converter</title>
@@ -72,15 +92,10 @@ Copyright info
 
 <hr>
 
-<p>Edit your LaTeX math expression here. <br>
-In-line enviroment: <textarea id="example1" rows="1" cols="5" readonly>\( \)</textarea>  Display environment: <textarea id="example1" rows="1" cols="5" readonly>\[ \]</textarea> <br>
-You can use CodeCogs to help you type or just write your own. <br>
-If you use CodeCogs, after you have finished typing, click "Copy to document" in the pop-up window. <br>
-</p>
-<p><a href="javascript:OpenLatexEditor('latexBox','latex','')">
-Launch CodeCogs Equation Editor
-</a></p>
-<textarea id="latexBox" rows="6" cols="70"></textarea>
+<p>Edit your LaTeX math expression here.</p>
+<div id="latexToolbar"></div>
+<div align="center"><textarea id="latexBox" rows="6" cols="70"></textarea></div>
+<div align="center"><img id="latexEquation" align="middle" /></div>
 
 <hr>
 
