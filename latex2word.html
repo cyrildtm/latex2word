@@ -66,7 +66,7 @@ waitForElementToDisplay('#latexEquation', 200);
 </head>
 <body>
 
-<p>A LaTex to Word Equation Converter</p>
+<h1>latex2word: A LaTeX to Word Equation Converter</h1>
 <p>Y. Cui, Feb 2019</p>
 
 <p><a href="javascript:ShowCopyright();">
@@ -92,28 +92,28 @@ Copyright info
 
 <hr>
 
-<p>Edit your LaTeX math expression here.</p>
+<p>Step 1: Edit your LaTeX math expression here.</p>
 <div id="latexToolbar"></div>
 <div align="center"><textarea id="latexBox" rows="6" cols="70"></textarea></div>
 <div align="center"><img id="latexEquation" align="middle" /></div>
 
 <hr>
 
-<p><a href="javascript:updateMathJaxBox()">
-Update MathJax Content
+<p>Step 2: After you have finished typing, <a href="javascript:updateMathJaxBox()">
+Click Here to Update MathJax Content
 </a></p>
 <div id="mathjaxBox"></div>
 
 <hr>
 
-<p>
+<p>Step 3: 
 Copy the following code into your clipboard, go to Word, right click on the cursor, and choose Paste. 
 (Do not use Ctrl+V. It will not work. )
 <br>
 To paste into PowerPoint, first paste it in Word, then copy the Word Equation object into PowerPoint. 
 </p>
 
-<textarea id="pasteBox" rows="6" cols="70" readonly></textarea>
+<div align="center"><textarea id="pasteBox" rows="6" cols="70" readonly></textarea></div>
 
 
 </body>
