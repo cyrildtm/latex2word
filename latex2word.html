@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8"> 
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <link rel="stylesheet" type="text/css"
   href="https://latex.codecogs.com/css/equation-embed.css" />
 <!--[if lte IE 7]>
@@ -16,6 +16,7 @@
 MathJax.Hub.Config({
     extensions: ["toMathML.js"]
 });
+MathJax.Hub.setRenderer("NativeMML");
 
 function toMathML(jax,callback) {
     var mml;
@@ -47,19 +48,33 @@ function ShowCopyright() {
 
 </script>
 <script type="text/javascript">
-function waitForElementToDisplay(selector, time) {
+function waitCodeCogs1(selector, time) {
     if(document.querySelector(selector)!=null) {
         EqEditor.embed('latexToolbar');
         EqEditor.add(new EqTextArea('latexEquation', 'latexBox'),false);
+        EqEditor.setFormat('png');
         return;
     }
     else {
         setTimeout(function() {
-            waitForElementToDisplay(selector, time);
+            waitCodeCogs1(selector, time);
         }, time);
     }
 }
-waitForElementToDisplay('#latexEquation', 200);
+function waitCodeCogs2(selector, time) {
+    if(document.querySelector(selector)!=null) {
+        document.querySelector("select#dpi option[value='200']").setAttribute("selected", "selected");
+        document.querySelector("select#fontsize option[value*='large']").setAttribute("selected","selected");
+        return;
+    }
+    else {
+        setTimeout(function() {
+            waitCodeCogs2(selector, time);
+        }, time);
+    }
+}
+waitCodeCogs1('#latexEquation', 200);
+waitCodeCogs2('select#dpi', 200);
 </script>
 
 <title>LaTeX to Word Equation Converter</title>
