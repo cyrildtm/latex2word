@@ -36,6 +36,9 @@ function updateMathJaxBox() {
     toMathML(jax, function(mml) {
         pasteBox.value = '<?xml version="1.0"?>\n' + mml;
     });
+    
+    var copyFeedback = document.getElementById("copyMMLComplete");
+    copyFeedback.textContent = "";
 }
 
 function ShowCopyright() {
@@ -75,6 +78,16 @@ function waitCodeCogs2(selector, time) {
 }
 waitCodeCogs1('#latexEquation', 200);
 waitCodeCogs2('select#dpi', 200);
+</script>
+<script type="text/javascript">
+function copyMMLToClipboard() {
+    var copyText = document.getElementById("pasteBox");
+    copyText.select();
+    document.execCommand("Copy");
+    
+    var copyFeedback = document.getElementById("copyMMLComplete");
+    copyFeedback.textContent = "\u2713";
+}
 </script>
 
 <title>LaTeX to Word Equation Converter</title>
@@ -125,9 +138,9 @@ Copyright info
 
 <hr>
 
-<p>Step 2: After you have finished typing, <a href="javascript:updateMathJaxBox()">
+<p>Step 2: After you have finished typing, <button type="button" onclick="updateMathJaxBox()">
 Click Here to Update MathJax Content
-</a></p>
+</button></p>
 <div id="mathjaxBox"></div>
 
 <hr>
@@ -138,6 +151,8 @@ Copy the following code into your clipboard, go to Word, right click on the curs
 <br>
 To paste into PowerPoint, first paste it in Word, then copy the Word Equation object into PowerPoint. 
 </p>
+
+<p align="center"><button type="button" onclick="copyMMLToClipboard()">Copy to Clipboard</button><span id="copyMMLComplete"/></p>
 
 <div align="center"><textarea id="pasteBox" rows="6" cols="70" readonly></textarea></div>
 
